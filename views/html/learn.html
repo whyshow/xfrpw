@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+
+		<title>课程||{{.course.Course_name}}</title>
+		<link rel="icon" type="image/png" href="../../static/admin/i/xin.png">
+		<link rel="stylesheet" href="../../static/layui/css/layui.css" />
+		<link rel="stylesheet" href="../../static/css/css/index.css" />
+		<link rel="stylesheet" href="../../static/css/css/fonts.css" />
+		<link rel="stylesheet" href="../../static/css/css/direction.css" />
+		<link rel="stylesheet" href="../../static/css/css/base.css" />
+	</head>
+
+	<body>
+	<ul class="layui-nav layui-bg-blue">
+		<li class="title">信飞软件工程研发中心资源站</li>
+		<li class="layui-nav-item">
+			<a href="/">首页</a>
+		</li>
+		<li class="layui-nav-item">
+			<a href="/classify?c=java">Java方向</a>
+		</li>
+		<li class="layui-nav-item">
+			<a href="/classify?c=py">Python方向</a>
+		</li>
+		<li class="layui-nav-item">
+			<a href="/classify?c=html">HTML前端</a>
+		</li>
+		<li class="layui-nav-item">
+			<a href="/classify?c=dsj">大数据方向</a>
+		</li>
+		<li class="layui-nav-item">
+			<a href="/classify?c=php">PHP方向</a>
+		</li>
+		<li class="layui-nav-item">
+			<a href="javascript:;">移动互联方向</a>
+			<dl class="layui-nav-child">
+				<dd>
+					<a href="/classify?c=android">Android</a>
+				</dd>
+				<dd>
+					<a href="/classify?c=ios">IOS</a>
+				</dd>
+			</dl>
+		</li>
+	</ul>
+
+		<div class="course-infos">
+			<div class="w pr">
+				<div class="path">
+					<a href="/classify?c=be">课程</a>
+					<i class="path-split">|</i>
+					<a href="/classify?c={{.classify.Indexes}}">{{.classify.Classify_name}}</a>
+					<i class="path-split">|</i>
+					<span>{{.course.Course_name}}</span>
+				</div>
+				<div class="hd clearfix">
+					<h2 class="l">{{.course.Course_name}}</h2>
+				</div>
+			</div>
+		</div>
+
+		<div class="content" style="width: 60%; margin-left: 5%;">
+			<!-- 课程简介 -->
+			<div class="course-description course-wrap">
+				{{.course.Course_info}}
+			</div>
+			<!-- 课程简介 end -->
+
+			{{range .section}}
+			<!-- 课程章节 -->
+			<div class="course-chapters">
+				<div class="chapter course-wrap ">
+					<!-- 章节标题 -->
+					<h3>
+                        第{{.Section_part}}章 {{.Section_name}}
+                    </h3>
+					<div class="chapter-description">
+						{{.Section_info}}
+					</div>
+					<!-- 章节标题 end -->
+					<!-- 章节小节 -->
+					<ul class="video">
+						{{range .Ccit_knobble}}
+						<li data-media-id="19339">
+							<a href="play?c={{.Knobble_id}}" class="J-media-item" target ="_blank">
+								<i class="am-icon-play-circle type"></i> {{.Knobble_name}}
+
+
+
+							</a>
+						</li>
+						{{end}}
+					</ul>
+					<!-- 章节小节 end -->
+				</div>
+				
+			</div>
+			{{end}}
+			<!-- 课程章节 end -->
+		</div>
+
+		<footer class="footer">
+			<div class="text-center">© 2019 信飞软件工程研发中心</div>
+		</footer>
+	</body>
+	<script type="text/javascript" src="../../static/js/jquery.min.js"></script>
+	<script type="text/javascript" src="../../static/layui/layui.js"></script>
+	<script type="text/javascript">
+		//计算底部的footer的显示
+		if($(document.body).height() < $(window).height()) {
+			$(".footer").css("position", "absolute")
+		} else {
+			$(".footer").css("position", "relative")
+		}
+		layui.use(['carousel', 'form'], function() {
+			var carousel = layui.carousel,
+				form = layui.form;
+
+			//其它示例
+			$('.demoTest .layui-btn').on('click', function() {
+				var othis = $(this),
+					type = othis.data('type');
+				active[type] ? active[type].call(this, othis) : '';
+			});
+		});
+		layui.use('element', function() {
+			var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
+			//监听导航点击
+			element.on('nav(demo)', function(elem) {
+				//console.log(elem)
+				layer.msg(elem.text());
+			});
+		});
+	</script>
+
+</html>

@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>信飞工程中心管理平台</title>
+  <meta name="description" content="这是一个 index 页面">
+  <meta name="keywords" content="index">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <link rel="icon" type="image/png" href="../../static/admin/i/xin.png">
+  <link rel="apple-touch-icon-precomposed" href="../static/admin/i/app-icon72x72@2x.png">
+  <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+  <link rel="stylesheet" href="../../static/admin/css/amazeui.min.css" />
+  <link rel="stylesheet" href="../../static/admin/css/admin.css">
+  <link rel="stylesheet" href="../../static/admin/css/app.css">
+	<style type="text/css">
+		html{
+			background-color: #334054;
+		}
+	</style>
+</head>
+
+<body data-type="login">
+  <div class="am-g myapp-login">
+	<div class="myapp-login-logo-block  tpl-login-max">
+		<div class="myapp-login-logo-text">
+			<div class="myapp-login-logo-text" style="margin-top: 50px;">
+				信飞工程中心管理平台
+			</div>
+		</div>
+
+		<div class="login-font">
+			<!--<i>登录</i> or <span>注册</span>-->
+		</div>
+		<div class="am-u-sm-10 login-am-center">
+			<form class="am-form">
+				<fieldset>
+					<div class="am-form-group">
+						<input type="text" class="" name="Name" id="name" placeholder="输入用户名">
+					</div>
+					<div class="am-form-group">
+						<input type="password" class="" name="Password" id="password" placeholder="输入密码">
+					</div>
+					<p><button type="button" onclick="login()" class="am-btn am-btn-default">登录</button></p>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+</div>
+
+  <script src="../../static/admin/js/jquery.min.js"></script>
+  <script src="../../static/admin/js/amazeui.min.js"></script>
+  <script src="../../static/admin/js/app.js"></script>
+  <script src="../../static/admin/layer/layer.js"></script>
+  <script type="text/javascript">
+	  function login() {
+		  var account = $("#name").val()
+		  var password = $("#password").val()
+		  $.ajax({
+			  async : true,
+			  url: "./login_request",
+			  type: "POST",
+			  data:{
+				  Name:account,
+				  Password:password
+			  },
+			  dataType : "json",
+			  success:function (data) {
+			  	if (data.code ==1){
+					layer.alert(data.message, {
+						icon: 2,
+						skin: 'layer-ext-moon', //该皮肤由layer.seaning.com友情扩展。关于皮肤的扩展规则，去这里查阅
+						time:1000,
+					})
+				}else if (data.code ==2) {
+					layer.alert(data.message, {
+						icon: 2,
+						skin: 'layer-ext-moon', //该皮肤由layer.seaning.com友情扩展。关于皮肤的扩展规则，去这里查阅
+						time:1000,
+					})
+				}else if (data.code ==0) {
+					window.location.href=data.message
+				}
+			  }
+		  })
+	  }
+
+	  function keyLogin(){
+		  if (event.keyCode==13){
+			  login()
+		  }
+	  }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <!-- 响应式标签-->
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"/>
+    <title>信飞工作室资源站</title>
+    <link rel="icon" type="image/png" href="../../static/admin/i/xin.png">
+    <link rel="stylesheet" href="../static/layui/css/layui.css"/>
+    <link rel="stylesheet" href="../static/css/css/index.css"/>
+    <link rel="stylesheet" href="../static/css/css/direction.css"/>
+</head>
+
+<body>
+<ul class="layui-nav layui-bg-blue">
+    <li class="title">信飞软件工程研发中心资源站</li>
+    <li class="layui-nav-item">
+        <a href="/">首页</a>
+    </li>
+    <li class="layui-nav-item">
+        <a href="/classify?c=java">Java方向</a>
+    </li>
+    <li class="layui-nav-item">
+        <a href="/classify?c=py">Python方向</a>
+    </li>
+    <li class="layui-nav-item">
+        <a href="/classify?c=html">HTML前端</a>
+    </li>
+    <li class="layui-nav-item">
+        <a href="/classify?c=dsj">大数据方向</a>
+    </li>
+    <li class="layui-nav-item">
+        <a href="/classify?c=php">PHP方向</a>
+    </li>
+    <li class="layui-nav-item">
+        <a href="javascript:;">移动互联方向</a>
+        <dl class="layui-nav-child">
+            <dd>
+                <a href="/classify?c=android">Android</a>
+            </dd>
+            <dd>
+                <a href="/classify?c=ios">IOS</a>
+            </dd>
+        </dl>
+    </li>
+</ul>
+
+<footer class="footer">
+    <div class="text-center">© 2019 信飞软件工程研发中心</div>
+</footer>
+</body>
+<script type="text/javascript" src="../static/js/jquery.min.js"></script>
+<script type="text/javascript" src="../static/layui/layui.js"></script>
+<script type="text/javascript">
+    //计算底部的footer的显示
+    if ($(document.body).height() < $(window).height()) {
+        $(".footer").css("position", "absolute")
+    } else {
+        $(".footer").css("position", "relative")
+    }
+    layui.use(['carousel', 'form'], function () {
+        var carousel = layui.carousel,
+            form = layui.form;
+
+        //其它示例
+        $('.demoTest .layui-btn').on('click', function () {
+            var othis = $(this),
+                type = othis.data('type');
+            active[type] ? active[type].call(this, othis) : '';
+        });
+    });
+    layui.use('element', function () {
+        var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
+        //监听导航点击
+        element.on('nav(demo)', function (elem) {
+            //console.log(elem)
+            layer.msg(elem.text());
+        });
+    });
+</script>
+
+</html>

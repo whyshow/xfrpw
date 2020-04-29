@@ -1,0 +1,200 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>用户管理</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <link rel="stylesheet" href="../../static/admin/css/amazeui.min.css"/>
+    <link rel="stylesheet" href="../../static/admin/css/admin.css">
+    <link rel="stylesheet" href="../../static/admin/css/app.css">
+    <style type="text/css">
+        .ellip{
+            max-width: 110px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+
+<body>
+
+<div>
+
+    <div class="tpl-portlet-components" style="height: 620px" id="allh">
+        <div class="portlet-title">
+            <div class="caption font-green bold">
+                <span class="am-icon-code"></span> 用户管理
+            </div>
+        </div>
+
+        <div class="tpl-block">
+            <div class="am-g">
+                <div class="am-u-sm-12 am-u-md-9">
+                    <div class="am-btn-toolbar">
+                        <div class="am-btn-group am-btn-group-xs">
+                            <button type="button" class="am-btn am-btn-default am-btn-success">
+                                <span class="am-icon-plus"></span>
+                                <a class="am-btn-success" href="/admin/adduserpage">新增用户</a>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <select data-am-selected="{btnSize: 'sm',maxHeight: 350}" id="direction" onchange="getdirection()">
+                    <option value="1">请选择年级</option>
+
+                        <option value="">2017</option>
+
+
+                </select>
+            </div>
+
+            <div class="am-g">
+                <div class="am-u-sm-12">
+                    <form class="am-form" action="" method="get">
+                        <table class="am-table am-table-striped am-table-hover table-main" style="margin-bottom: 0px;">
+                            <thead>
+                            <tr>
+                                <th class="table-title" style="text-align: center" width="20%">学号</th>
+                                <th class="table-title" style="text-align: center" width="20%">姓名</th>
+                                <th class="table-id" style="text-align: center" width="20%">手机号码</th>
+                                <th class="table-type" style="text-align: center" width="20%">激活</th>
+                                <th class="table-set" style="text-align: center" width="20%">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody style="table-layout: fixed;height: 840px" id="tbodys" scrolling="yes">
+                            {{range .user}}
+                                <tr>
+                                    <td class="ellip" style="text-align: center">{{.Student_number}}</td>
+                                    <td class="ellip" style="text-align: center"><a href="#" target="_Blank">{{.Student_name}}</a></td>
+                                    <td class="ellip" style="text-align: center">{{.Student_phone}}</td>
+                                    <td class="am-hide-sm-only" style="text-align: center">{{.Student_activity}}</td>
+                                    <td style="text-align: center">
+                                        <div>
+                                            <div class="am-btn-group am-btn-group-xs">
+                                                <button type="button" class="am-btn am-btn-default am-btn-xs am-text-secondary" value="">
+                                                    <span class="am-icon-pencil-square-o"></span>
+                                                    <a href="#">编辑</a>
+                                                </button>
+                                                <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only">
+                                                    <span class="am-icon-trash-o"></span>
+                                                    <a href="JavaScript:;" onclick="deletecourse()">删除</a>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {{end}}
+                            </tbody>
+                        </table>
+                        <hr>
+                        <div class="am-cf" style="margin-top: -20px" id="pages">
+                            <div class="am-fr">
+                               <!-- <ul class="am-pagination">
+                                    <li class=""><a href="/admin/course?page={{.paginator.firstpage}}">«</a></li>
+                                    {{range $index,$page := .paginator.pages}}
+                                        <li {{if eq $.paginator.currpage $page }}class="am-active"{{end}}><a
+                                                    href="/admin/course?page={{$page}}">{{$page}}</a></li>
+                                    {{end}}
+                                    <li><a href="/admin/course?page={{.paginator.lastpage}}">»</a></li>
+                                </ul> -->
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../../static/admin/js/jquery.min.js"></script>
+<script src="../../static/admin/js/amazeui.min.js"></script>
+<script src="../../static/admin/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    function getdirection() {
+        var id = document.getElementById("direction");
+        var grade = id.options[id.selectedIndex].value;
+        $.ajax({
+            url: "/admin/getDirection",
+            type: "POST",
+            data:{
+                id:grade
+            },
+            success:function (data) {
+                if (data.code == 1) {
+                    $("#tbodys").html("");
+                    var h = (data.message.length+1) * 55
+                    if(h < 620) {
+                        $("#allh").css("height","620px");//通过设置CSS属性来设置元素的高
+                    }else {
+                        $("#allh").css("height", h+"px");//通过设置CSS属性来设置元素的高
+                    }
+                    for (var i = 0;i < data.message.length;i++){
+                        str1 = " <tr>"+
+                            "  <td class=\"ellip\" style=\"text-align: center\"><a href=\"/classify?c="+ data.message[i].Indexes+"\" target=\"_Blank\">"+data.message[i].Classify_name+"</a></td>\n" +
+                            "                                    <td class=\"ellip\" style=\"text-align: center\"><a href=\"/learn?c="+data.message[i].Courset_id+"\" target=\"_Blank\">"+data.message[i].Course_name+"</a></td>\n" +
+                            "                                    <td class=\"ellip\" style=\"text-align: center\">"+data.message[i].Course_info+"</td>\n" +
+                            "                                    <td class=\"am-hide-sm-only\" style=\"text-align: center\">"+data.message[i].Putaway_time+"</td>\n" +
+                            "                                    <td style=\"text-align: center\">\n" +
+                            "                                        <div>\n" +
+                            "                                            <div class=\"am-btn-group am-btn-group-xs\">\n" +
+                            "                                                <button type=\"button\" class=\"am-btn am-btn-default am-btn-xs am-text-secondary\" value=\" \">\n" +
+                            "                                                    <span class=\"am-icon-pencil-square-o\"></span>\n" +
+                            "                                                    <a href=\" /admin/alterkcpage?id="+data.message[i].Courset_id + "\">编辑</a>\n" +
+                            "                                                </button>\n" +
+                            "                                                <button class=\"am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only\">\n" +
+                            "                                                    <span class=\"am-icon-trash-o\"></span>\n" +
+                            "                                                    <a href=\"JavaScript:;\" onclick=\"deletecourse("+data.message[i].Courset_id+")\">删除</a>\n" +
+                            "                                                </button>\n" +
+                            "                                            </div>\n" +
+                            "                                        </div>\n" +
+                            "                                    </td>"+
+                            "</tr>";
+                        $("#tbodys").append(str1);
+                    }
+
+                    $("#pages").html("");
+                }
+            }
+        })
+    }
+
+    function deletecourse(id) {
+        var x = confirm("确定删除此条数据吗？");
+        if (x) {
+            $.ajax({
+                url: "/admin/removekc",
+                type: "GET",
+                data:{
+                    id:id
+                },
+                success: function (data) {
+                    if (data.code == 1) {
+                        layer.alert(data.message, {
+                            icon: 1,
+                            skin: 'layer-ext-moon', //该皮肤由layer.seaning.com友情扩展。关于皮肤的扩展规则，去这里查阅
+                            time: 2000,
+                            end: function () {
+                                window.location.href = "/admin/course/";
+                            }
+                        })
+
+                    } else {
+                        layer.alert(data.message, {
+                            icon: 2,
+                            skin: 'layer-ext-moon', //该皮肤由layer.seaning.com友情扩展。关于皮肤的扩展规则，去这里查阅
+                            time: 2000
+                        })
+                    }
+                }
+            })
+        }
+    }
+</script>
+</body>
+
+</html>

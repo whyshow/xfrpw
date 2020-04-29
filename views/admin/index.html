@@ -1,0 +1,169 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>信飞资源管理后台</title>
+		<link rel="icon" type="image/png" href="../../static/admin/i/xin.png">
+		<link rel="stylesheet" href="../../static/admin/css/amazeui.min.css" />
+		<link rel="stylesheet" href="../../static/admin/css/admin.css">
+		<link rel="stylesheet" href="../../static/admin/css/app.css">
+		<script src="../../static/admin/js/echarts.min.js"></script>
+	</head>
+	<body data-type="index">
+		<header class="am-topbar am-topbar-inverse admin-header">
+			<div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+				<ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list tpl-header-list">
+					<li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
+						<a class="am-dropdown-toggle tpl-header-list-link" href="javascript:;">
+							<span class="tpl-header-list-user-nick">Admin</span><span class="tpl-header-list-user-ico">
+								<img src="../static/admin/img/user01.png"></span>
+						</a>
+						<ul class="am-dropdown-content">
+							<li>
+								<a href="/admin/exit"><span class="am-icon-power-off"></span> 退出</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</header>
+
+		<div class="tpl-page-container tpl-page-header-fixed">
+			<div class="tpl-left-nav tpl-left-nav-hover">
+				<div class="tpl-left-nav-title">
+				 菜单管理
+				</div>
+				<div class="tpl-left-nav-list">
+					<ul class="tpl-left-nav-menu">
+						<li class="tpl-left-nav-item">
+							<a href="javascript:;" class="nav-link tpl-left-nav-link-list">
+								<i class="am-icon-strikethrough"></i>
+								<span>数据系统</span>
+								<i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right"></i>
+							</a>
+							<ul class="tpl-left-nav-sub-menu">
+								<li>
+									<a href="/admin/statistics.html" class="click-link" target="mainframe">
+										<i class="am-icon-angle-right"></i>
+										<span>访问统计</span><!--分页 倒叙  添加文字按钮 新闻发布左移居中-->
+									</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+					<ul class="tpl-left-nav-menu">
+						<li class="tpl-left-nav-item">
+							<a href="javascript:;" class="nav-link tpl-left-nav-link-list">
+								<i class="am-icon-table"></i>
+								<span>课程系统</span>
+								<i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right"></i>
+							</a>
+							<ul class="tpl-left-nav-sub-menu">
+								<li>
+									<a href="/admin/direction.html" class="click-link" target="mainframe">
+										<i class="am-icon-angle-right"></i>
+										<span>分类管理</span>
+									</a>
+									<a href="/admin/course.html" class="click-link" target="mainframe">
+										<i class="am-icon-angle-right"></i>
+										<span>课程管理</span>
+									</a>
+									<a href="/admin/section.html" class="click-link" target="mainframe">
+										<i class="am-icon-angle-right"></i>
+										<span>章节管理</span>
+									</a>
+
+									<a href="/admin/statistics.html" class="click-link" target="mainframe">
+										<i class="am-icon-angle-right"></i>
+										<span>小节管理</span>
+									</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+
+					<ul class="tpl-left-nav-menu">
+						<li class="tpl-left-nav-item">
+							<a href="javascript:;" class="nav-link tpl-left-nav-link-list">
+								<i class="am-icon-user-md"></i>
+								<span>账户系统</span>
+								<i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right"></i>
+							</a>
+							<ul class="tpl-left-nav-sub-menu">
+								<li>
+									<a href="/admin/logs" class="click-link" target="mainframe">
+										<i class="am-icon-angle-right"></i>
+										<span>管理员账号</span>
+									</a>
+									<a href="/admin/queryusers" class="click-link" target="mainframe">
+										<i class="am-icon-angle-right"></i>
+										<span>普通账号</span>
+									</a>
+									<a href="/admin/section.html" class="click-link" target="mainframe">
+										<i class="am-icon-angle-right"></i>
+										<span>DeBug日志</span>
+									</a>
+
+								</li>
+							</ul>
+						</li>
+					</ul>
+
+					<ul class="tpl-left-nav-menu">
+						<li class="tpl-left-nav-item">
+							<a href="javascript:;" class="nav-link tpl-left-nav-link-list">
+								<i class="am-icon-pinterest"></i>
+								<span>日志系统</span>
+								<i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right"></i>
+							</a>
+							<ul class="tpl-left-nav-sub-menu">
+								<li>
+									<a href="/admin/logs" class="click-link" target="mainframe">
+										<i class="am-icon-angle-right"></i>
+										<span>管理员操作日志</span>
+									</a>
+									<a href="/admin/course.html" class="click-link" target="mainframe">
+										<i class="am-icon-angle-right"></i>
+										<span>用户访问日志</span>
+									</a>
+									<a href="/admin/section.html" class="click-link" target="mainframe">
+										<i class="am-icon-angle-right"></i>
+										<span>DeBug日志</span>
+									</a>
+
+								</li>
+							</ul>
+						</li>
+					</ul>
+
+
+
+				</div>
+			</div>
+			<div class="tpl-content-wrapper">
+				<iframe id="mainframe" src="/admin/statistics.html" name="mainframe" frameborder="0" scrolling="yes" width="100%" height="620px"style="margin-top:-10px"> </iframe>
+			</div>
+
+		</div>
+		<script src="../../static/admin/js/jquery.min.js"></script>
+		<script src="../../static/admin/js/amazeui.min.js"></script>
+		<script src="../../static/admin/js/app.js"></script>
+		<script src="../../static/admin/layer/layer.js"></script>
+		<script type="text/javascript">
+			//设置iframe的高度自适应
+			$("#mainframe").load(function() {
+				var mainheight = $(this).contents().find("body").height() + 30;
+				$(this).height(mainheight);
+			});
+			//设置菜单的选中状态
+			$(".click-link").on("click", function() {
+				$("a").removeClass("active");
+				$(this).addClass("active");
+				$(this).parents("ul.tpl-left-nav-sub-menu").prev().addClass("active");
+			});
+		</script>
+	</body>
+
+</html>

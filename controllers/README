@@ -1,0 +1,10 @@
+**admin.go**    
+**admin_addition.go** ：管理员添加课程相关内容       
+**admin_alter.go** ：管理员修改课程等信息     
+**admin_query.go** ：管理员查询相关内容    
+**admin_remove.go** ：管理员删除相关内容    
+**admin_updata.go** ：管理员上传相关信息   
+**Error.go** ：404等相关自定义内容   
+**login.go** ：用户登录和退出登录     
+**utils.go**：公共函数    
+**web.go** ：普通用户站点的应答

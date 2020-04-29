@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/png" href="../../static/admin/i/xin.png">
+		<title>课程分类||{{.code.code}}</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<link rel="stylesheet" href="../../static/layui/css/layui.css" />
+		<link rel="stylesheet" href="../../static/css/css/index.css" />
+		<link rel="stylesheet" href="../../static/css/css/direction.css" />
+	</head>
+
+	<body>
+	<ul class="layui-nav layui-bg-blue">
+		<li class="title">信飞软件工程研发中心资源站</li>
+		<li class="layui-nav-item">
+			<a href="/">首页</a>
+		</li>
+		<li class="layui-nav-item">
+			<a href="/classify?c=java">Java方向</a>
+		</li>
+		<li class="layui-nav-item">
+			<a href="/classify?c=py">Python方向</a>
+		</li>
+		<li class="layui-nav-item">
+			<a href="/classify?c=html">HTML前端</a>
+		</li>
+		<li class="layui-nav-item">
+			<a href="/classify?c=dsj">大数据方向</a>
+		</li>
+		<li class="layui-nav-item">
+			<a href="/classify?c=php">PHP方向</a>
+		</li>
+		<li class="layui-nav-item">
+			<a href="javascript:;">移动互联方向</a>
+			<dl class="layui-nav-child">
+				<dd>
+					<a href="/classify?c=android">Android</a>
+				</dd>
+				<dd>
+					<a href="/classify?c=ios">IOS</a>
+				</dd>
+			</dl>
+		</li>
+	</ul>
+		<div style="padding-left: 5%;">
+			<!-- 分类-->
+			<div class="course-nav-row course-nav-skills clearfix">
+				<div class="js-course-skills">
+					<span class="hd l">分类：</span>
+					<div class="bd">
+						<ul class="">
+							<li class="course-nav-item">
+								<a href="/classify?c=be" name="all">全部</a>
+							</li>
+							{{range .classify}}
+							<li class="course-nav-item ">
+								<a href="/classify?c={{.Indexes}}" data-id="220" id="{{.Indexes}}" name="{{.Indexes}}" data-ct="be">{{.Classify_name}}</a>
+							</li>
+							{{end}}
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div style="padding-left: 5%;padding-top: 1%;overflow:auto">
+			{{range .course}}
+			<div class="course-card-container">
+				<a target="_parent" href="./learn?c={{.Courset_id}}" class="course-card">
+
+					<div class="course-card-top">
+						<!-- 图片-->
+						<img class="course-banner lazy"  src="{{.Cover_img}}" style="display: inline;height: 120px;width: 216px;">
+					    <!-- 标签功能-->
+						<!--<div class="course-label">
+							<label>Java</label>
+							<label>SpringBoot</label>
+						</div>-->
+					</div>
+					<div class="course-card-content">
+						<!-- 标题-->
+						<h3 class="course-card-name">{{.Course_name}}</h3>
+						<div class="clearfix course-card-bottom">
+							<!-- 介绍-->
+							<p class="course-card-desc">{{.Course_info}}</p>
+						</div>
+					</div>
+				</a>
+			</div>
+			{{end}}
+		</div>
+		<footer class="footer">
+			<div class="text-center">© 2019 信飞软件工程研发中心</div>
+		</footer>
+	</body>
+	<script type="text/javascript" src="../../static/js/jquery.min.js"></script>
+	<script type="text/javascript" src="../../static/layui/layui.js"></script>
+	<script type="text/javascript">
+		//计算底部的footer的显示
+		if($(document.body).height()< $(window).height()){
+			$(".footer").css("position","absolute")
+		}else{
+			$(".footer").css("position","relative")
+		}
+		layui.use('element', function() {
+			var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
+			//监听导航点击
+			element.on('nav(demo)', function(elem) {
+				//console.log(elem)
+				layer.msg(elem.text());
+			});
+		});
+
+		var li=document.getElementsByClassName("course-nav-item");
+		for (lia in li) {
+			var lista = li[lia].getElementsByTagName("a")
+			for (lia_ in lista) {
+				if (lista[lia_].innerHTML == {{.code.code}} ){
+					li[lia].classList.add('on');
+				}
+			}
+		}
+	</script>
+
+</html>

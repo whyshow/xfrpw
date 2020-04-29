@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<style class="vjs-styles-defaults">
+			.video-js {
+				width: 300px;
+				height: 150px;
+			}
+			
+			.vjs-fluid {
+				padding-top: 56.25%
+			}
+		</style>
+		<style class="vjs-styles-dimensions">
+			.video-box-mocoplayer-hls-video-dimensions {
+				width: 1280px;
+				height: 720px;
+			}
+			
+			.video-box-mocoplayer-hls-video-dimensions.vjs-fluid {
+				padding-top: 56.25%;
+			}
+		</style>
+		<meta http-equiv="Cache-Control" content="no-transform">
+		<meta http-equiv="Cache-Control" content="no-siteapp">
+		<title>{{.knobble.Knobble_name}}</title>
+		<link rel="icon" type="image/png" href="../../static/admin/i/xin.png">
+		<link rel="stylesheet" href="../../static/css/video/base.css" />
+		<link rel="stylesheet" href="../../static/css/video/mocoplayer.css" />
+	</head>
+
+	<body>
+		<div id="header" class="course-detail-header">
+			<div class="cd-inner clearfix">
+				<ul class="l">
+					<!-- <li class="nv nv-goback">
+						<a href="https://www.imooc.com/learn/872" class="revert l"><i class="am-icon-arrow-circle-o-left"></i></a>
+					</li> -->
+					<li class="nv nv-menu">
+						<a href="javascript:;" class="chaptername J-chaptername" data-id="15464" style="cursor:text;">
+							<em>{{.knobble.Knobble_name}}</em>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<div id="studyMain">
+			<div id="bgarea" class="video-con">
+				<div id="courseLayout" class="course-layout">
+					<!--此处结构为练习题，视频，编程公用的侧栏-->
+				<!--	<div class="section-list active">
+
+						<div class="nano has-scrollbar">
+							<div class="nano-content chapter-list" tabindex="0" style="right: -17px;">
+
+								<ul>
+									<li class="sec-title">
+										<span>第1章 StaggeredGridView 介绍</span>
+									</li>
+									<li class="sec-li" data-id="15462">
+										<a class="clearfix" href="https://www.imooc.com/video/15462"><em class="imv2-video_circle"></em>1-1 StaggeredGridView介绍(05:16)<i class="imv2-finish finish"></i></a>
+									</li>
+								</ul>
+								<ul>
+									<li class="sec-title">
+										<span>第2章 瀑布流图片加载流程</span>
+									</li>
+									<li class="sec-li" data-id="15463">
+										<a class="clearfix" href="https://www.imooc.com/video/15463"><em class="imv2-video_circle"></em>2-1 瀑布流加载图片流程1(12:34)<i class="imv2-half half"></i></a>
+									</li>
+									<li class="sec-li" data-id="15464">
+										<a class="clearfix" href="https://www.imooc.com/video/15464"><em class="imv2-video_circle"></em>2-2 瀑布流加载图片流程2(04:51)<i class="half">正在学<span class="imv2-history"></span></i></a>
+									</li>
+								</ul>
+								<ul>
+									<li class="sec-title">
+										<span>第3章 瀑布流图片加载流程具体实现</span>
+									</li>
+									<li class="sec-li" data-id="15465">
+										<a class="clearfix" href="https://www.imooc.com/video/15465"><em class="imv2-video_circle"></em>3-1 瀑布流加载图片实现(16:28)<i class="imv2-empty"></i></a>
+									</li>
+									<li class="sec-li" data-id="15466">
+										<a class="clearfix" href="https://www.imooc.com/video/15466"><em class="imv2-video_circle"></em>3-2 ScaleImageView实现(13:20)<i class="imv2-empty"></i></a>
+									</li>
+									<li class="sec-li" data-id="15467">
+										<a class="clearfix" href="https://www.imooc.com/video/15467"><em class="imv2-video_circle"></em>3-3 点击查看大图(06:04)<i class="imv2-empty"></i></a>
+									</li>
+								</ul>
+								<ul>
+									<li class="sec-title">
+										<span>第4章 课程总结</span>
+									</li>
+									<li class="sec-li" data-id="15468">
+										<a class="clearfix" href="https://www.imooc.com/video/15468"><em class="imv2-video_circle"></em>4-1 课程总结(04:16)<i class="imv2-empty"></i></a>
+									</li>
+								</ul>
+							</div>
+							<div class="nano-pane" style="display: none;">
+								<div class="nano-slider" style="height: 597px; transform: translate(0px, 0px);"></div>
+							</div>
+						</div>
+					</div>
+					<div class="course-sidebar-layout" id="courseSidebar">
+						<dl>
+							<dd class="openchapter">
+								<i class="imv2-nav_chapter"></i>
+								<span>章节</span>
+							</dd>
+						</dl>
+					</div>-->
+					<div class="course-center-layout" id="courseCenter" data-minw="500">
+						<div class="js-box-wrap course-video-wrap" style="width: 100%; height: 630px;">
+							<div id="J_Box" class="course-video-box">
+								<div id="video-box" class="video-wrap" style="width:100%;height:100%">
+
+									<video controls="controls" src="{{.knobble.Video_address}}" style="width:100%;height:100%">
+										<!--<source src="" type="video/mp4"> -->
+									</video>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="../../static/js/base.js"/>
+		<script type="text/javascript" src="../../static/js/video2.4.js"/>
+		<script>
+			//动态加载advertisementReportjs
+
+			var checkJQ = function(){
+				console.log(typeof jQuery)
+				if(typeof jQuery != 'undefined') {
+					clearInterval(timer);
+					var scr = document.createElement('script');
+					scr.type="text/javascript";
+					scr.src="/static/page/common/advertisementReport.js";
+					document.body.appendChild(scr);
+
+				}
+			}
+			var timer = setInterval(checkJQ,1000);
+
+		</script>
+	</body>
+
+</html>

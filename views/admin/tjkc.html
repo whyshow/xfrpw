@@ -1,0 +1,174 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>添加课程</title>
+    <link rel="stylesheet" href="../../static/admin/css/amazeui.min.css"/>
+    <link rel="stylesheet" href="../../static/admin/css/admin.css">
+    <link rel="stylesheet" href="../../static/admin/css/app.css">
+</head>
+
+<body>
+
+<div>
+    <div class="tpl-portlet-components" style="height: 700px">
+        <div class="portlet-title">
+            <div class="caption font-green bold">
+                <span class="am-icon-code"></span> 添加课程
+            </div>
+        </div>
+        <div class="tpl-block ">
+            <div class="am-g tpl-amazeui-form">
+                <div class="am-u-sm-12 am-u-md-9">
+                    <form class="am-form am-form-horizontal" enctype="multipart/form-data" method="get" id="form1"
+                          action="">
+                        <div class="am-form-group">
+                            <label class="am-u-sm-3 am-form-label">专业方向</label>
+                            <div class="am-u-sm-9">
+                                <select data-am-selected="{btnSize: 'sm'}" name="Classify" id="Classify" onchange="sss()">
+                                    <option value="">选择方向</option>
+                                    {{range .classify}}
+                                        <option value="{{.Classify_id}}">{{.Classify_name}}</option>
+                                    {{end}}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="am-form-group">
+                            <label for="user-name" class="am-u-sm-3 am-form-label">课程标题</label>
+                            <div class="am-u-sm-9">
+                                <input type="text" id="Title" name="Title" placeholder=" 例如：Java、PHP、MySQL、HTML">
+                            </div>
+                        </div>
+                       <!-- <div class="am-form-group">
+                            <label for="user-name" class="am-u-sm-3 am-form-label">所属标签</label>
+                            <div class="am-u-sm-9">
+                                <input type="text" id="Index" name="Index" placeholder="索引名称，不建议使用中文">
+                            </div>
+                        </div>-->
+                        <div class="am-form-group">
+                            <label for="user-name" class="am-u-sm-3 am-form-label">课程简介</label>
+                            <div class="am-u-sm-9">
+                                <input type="text" id="Synopsis" name="Synopsis" placeholder="对课程有个简短的介绍吧">
+                            </div>
+                        </div>
+
+                        <!--<div class="am-form-group">
+                         <label for="user-name" class="am-u-sm-3 am-form-label">是否上架</label>
+                         <div class="am-u-sm-9">
+                             <input type="text" id="Synopsis" name="Synopsis" placeholder="对课程有个简短的介绍吧">
+                         </div>
+                     </div>-->
+
+                        <div class="am-form-group">
+                            <label for="user-name" class="am-u-sm-3 am-form-label">封面</label>
+                            <div class="am-u-sm-9">
+                                <div class="am-form-group am-form-file">
+                                    <img id="xmTanImg" width="145px" height="100px"/><br />
+                                    <!--<input type="file" name="image">-->
+                                    <input type="file" id="uploadImage" name="uploadImage" onchange="xmTanUploadImg(this)" accept=".jpg,.png,.jpeg"/>
+
+                                    <button type="button" class="am-btn am-btn-danger am-btn-sm">
+                                        <i class="am-icon-cloud-upload"></i>选择封面
+                                    </button>
+                                    <p style="font-size: 12px; color: #999;">请上传.png .jpg .jpeg 格式的图片</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="am-form-group">
+                            <div class="am-u-sm-9 am-u-sm-push-3">
+                                <button type="button" class="am-btn am-btn-primary" onclick="add('/admin/tjkcdata')">添加</button>
+                                <a href="javascript:history.go(-1);" class="am-btn am-btn-danger ">取消</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../../static/admin/js/jquery.min.js"></script>
+<script src="../../static/admin/js/amazeui.min.js"></script>
+<script src="../../static/admin/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    function add(url) {
+        var Title = $("#Title").val().replace(/(^\s*)|(\s*$)/g, '');
+        var animateimg = $("#uploadImage").val(); //获取上传的图片名 带//
+        if (animateimg ==''){
+            layer.alert('请选择图片', {
+                icon: 2,
+                skin: 'layer-ext-moon', //该皮肤由layer.seaning.com友情扩展。关于皮肤的扩展规则，去这里查阅
+                time: 1500
+            })
+            return false;
+        }
+        var imgarr=animateimg.split('\\'); //分割
+        var myimg=imgarr[imgarr.length-1]; //去掉 // 获取图片名
+        var houzui = myimg.lastIndexOf('.'); //获取 . 出现的位置
+        var ext = myimg.substring(houzui, myimg.length).toUpperCase();  //切割 . 获取文件后缀
+        var file = $('#uploadImage').get(0).files[0]; //获取上传的文件
+        var fileSize = file.size;           //获取上传的文件大小
+        if(ext !='.PNG' && ext !='.GIF' && ext !='.JPG' && ext !='.JPEG' && ext !='.BMP'){
+            layer.alert('文件类型错误,请上传图片类型', {
+                icon: 2,
+                skin: 'layer-ext-moon', //该皮肤由layer.seaning.com友情扩展。关于皮肤的扩展规则，去这里查阅
+                time: 1500
+            })
+            return false;
+        }else if (Title == '') {
+            layer.alert('选项不能为空', {
+                icon: 2,
+                skin: 'layer-ext-moon', //该皮肤由layer.seaning.com友情扩展。关于皮肤的扩展规则，去这里查阅
+                time: 1500
+            })
+        }else{
+            var formData = new FormData($("#form1")[0])  //创建一个forData
+            formData.append('img', $('#uploadImage')[0].files[0]) //把file添加进去  name命名为img
+            formData.append('Classify', Classify = $("#Classify").val().replace(/(^\s*)|(\s*$)/g, ''))
+            formData.append('Title',Title)
+            formData.append('Synopsis',$("#Synopsis").val().replace(/(^\s*)|(\s*$)/g, ''))
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: formData,
+                dataType: 'JSON',
+                cache: false,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    if (data.code == 1) {
+                        layer.alert('添加成功', {
+                            icon: 1,
+                            skin: 'layer-ext-moon', //该皮肤由layer.seaning.com友情扩展。关于皮肤的扩展规则，去这里查阅
+                            time: 1000,
+                            end: function () {
+                                window.location.href = data.message;
+                            }
+                        })
+                    } else {
+                        layer.alert(data.message, {
+                            icon: 2,
+                            skin: 'layer-ext-moon', //该皮肤由layer.seaning.com友情扩展。关于皮肤的扩展规则，去这里查阅
+                            time: 1000,
+                        })
+                    }
+                }
+            })
+        }
+    }
+    //选择图片，马上预览
+    function xmTanUploadImg(obj) {
+        var file = obj.files[0];
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            var img = document.getElementById("xmTanImg");
+            img.src = e.target.result;
+        }
+        reader.readAsDataURL(file)
+    }
+</script>
+</body>
+
+</html>

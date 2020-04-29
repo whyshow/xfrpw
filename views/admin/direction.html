@@ -1,0 +1,139 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>专业方向</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <link rel="stylesheet" href="../../static/admin/css/amazeui.min.css"/>
+    <link rel="stylesheet" href="../../static/admin/css/admin.css">
+    <link rel="stylesheet" href="../../static/admin/css/app.css">
+</head>
+
+<body>
+
+<div>
+
+    <div class="tpl-portlet-components" style="height: 620px">
+        <div class="portlet-title">
+            <div class="caption font-green bold">
+                <span class="am-icon-code"></span> 专业分类
+            </div>
+        </div>
+
+        <div class="tpl-block">
+            <div class="am-g">
+                <div class="am-u-sm-12 am-u-md-6">
+                    <div class="am-btn-toolbar">
+                        <div class="am-btn-group am-btn-group-xs">
+                            <button type="button" class="am-btn am-btn-default am-btn-success"><span
+                                        class="am-icon-plus"></span><a class="am-btn-success"
+                                                                       href="/admin/tjzyfx.html">新增专业方向</a>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="am-g">
+                <div class="am-u-sm-12">
+                    <form class="am-form" action="" method="get">
+                        <table class="am-table am-table-striped am-table-hover table-main" style="margin-bottom: 0px;">
+                            <thead>
+                                <tr>
+                                    <th class="table-title" style="text-align: center" width="20%">方向名称</th>
+                                    <th class="table-id" style="text-align: center" width="25%">索引链接</th>
+                                    <th class="table-type" style="text-align: center" width="10%">课程数量</th>
+                                    <th class="table-author am-hide-sm-only" style="text-align: center" width="15%">添加日期</th>
+                                    <th class="table-set" style="text-align: center" width="20%">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{range .classify}}
+                                    <tr>
+                                        <td style="text-align: center">{{.Classify_name}}</td>
+                                        <td style="text-align: center"><a href="/classify?c={{.Indexes}}" target="_Blank">/classify?c={{.Indexes}}</a></td>
+                                        <td style="text-align: center">{{.Num}}</td>
+                                        <td class="am-hide-sm-only" style="text-align: center">{{.Add_date}}</td>
+                                        <td style="text-align: center">
+                                            <div>
+                                                <div class="am-btn-group am-btn-group-xs">
+
+                                                    <button type="button" class="am-btn am-btn-default am-btn-xs am-text-secondary" value="">
+                                                        <span class="am-icon-pencil-square-o"></span>
+                                                        <a href="/admin/alterfxpage?id={{.Classify_id}}">编辑</a>
+                                                    </button>
+                                                    <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only">
+                                                        <span class="am-icon-trash-o"></span> <a href="JavaScript:;" onclick="deleteinfo({{.Classify_id}})">删除</a>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {{end}}
+                            </tbody>
+                        </table>
+                        <div class="am-cf">
+                        </div>
+                        <hr>
+                        <div class="am-cf" style="margin-top: -20px">
+                            <div class="am-fr">
+                                <ul class="am-pagination">
+                                    <li class=""><a href="/admin/direction?page={{.paginator.firstpage}}">«</a></li>
+                                    {{range $index,$page := .paginator.pages}}
+                                        <li {{if eq $.paginator.currpage $page }}class="am-active"{{end}}><a
+                                                    href="/admin/direction?page={{$page}}">{{$page}}</a></li>
+                                    {{end}}
+                                    <li><a href="/admin/direction?page={{.paginator.lastpage}}">»</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="../../static/admin/js/jquery.min.js"></script>
+<script src="../../static/admin/js/amazeui.min.js"></script>
+<script src="../../static/admin/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    function deleteinfo(id) {
+        var x = confirm("确定删除此条数据吗？");
+        if (x) {
+            $.ajax({
+                url: "/admin/removefx",
+                type: "GET",
+                data:{
+                    id:id
+                },
+                success: function (data) {
+                    if (data.code == 1) {
+                        layer.alert('删除成功', {
+                            icon: 1,
+                            skin: 'layer-ext-moon', //该皮肤由layer.seaning.com友情扩展。关于皮肤的扩展规则，去这里查阅
+                            time: 2000,
+                            end: function () {
+                                window.location.href = "/admin/direction";
+                            }
+                        })
+
+                    } else {
+                        layer.alert(data.message, {
+                            icon: 2,
+                            skin: 'layer-ext-moon', //该皮肤由layer.seaning.com友情扩展。关于皮肤的扩展规则，去这里查阅
+                            time: 2000
+                        })
+                    }
+                }
+            })
+        }
+    }
+</script>
+</body>
+
+</html>

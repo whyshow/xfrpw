@@ -1,0 +1,212 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>添加章节</title>
+    <link rel="stylesheet" href="../../static/admin/css/amazeui.min.css"/>
+    <link rel="stylesheet" href="../../static/admin/css/admin.css">
+    <link rel="stylesheet" href="../../static/admin/css/app.css">
+</head>
+
+<body>
+
+<div>
+    <div class="tpl-portlet-components" style="height: 700px">
+        <div class="portlet-title">
+            <div class="caption font-green bold">
+                <span class="am-icon-code"></span> 添加章节/部分
+            </div>
+        </div>
+        <div class="tpl-block ">
+            <div class="am-g tpl-amazeui-form">
+                <div class="am-u-sm-12 am-u-md-9">
+                    <form class="am-form am-form-horizontal" enctype="multipart/form-data" method="post" id="form1"
+                          action="/admin/tjzjdata">
+                        <div class="am-form-group">
+                            <label class="am-u-sm-3 am-form-label">选择方向</label>
+                            <div class="am-u-sm-9">
+                                <select data-am-selected="{btnSize: 'sm',maxHeight: 400}" name="Classify" id="Classify" onchange="getsection()">
+                                    <option value="0">请选择方向</option>
+                                    {{range .classify}}
+                                        <option value="{{.Classify_id}}">{{.Classify_name}}</option>
+                                    {{end}}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="am-form-group">
+                            <label class="am-u-sm-3 am-form-label">选择课程</label>
+                            <div class="am-u-sm-9">
+                                <select data-am-selected="{btnSize: 'sm',maxHeight: 400}" name="course" id="course">
+                                    <option value="0">请选择课程</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="am-form-group">
+                            <label class="am-u-sm-3 am-form-label">选择第几章/部分</label>
+                            <div class="am-u-sm-9">
+                                <select data-am-selected="{btnSize: 'sm',maxHeight: 400}" name="part" id="part">
+                                    <option value="0">请选择标号</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                    <option value="13">13</option>
+                                    <option value="14">14</option>
+                                    <option value="15">15</option>
+                                    <option value="16">16</option>
+                                    <option value="17">17</option>
+                                    <option value="18">18</option>
+                                    <option value="19">19</option>
+                                    <option value="20">20</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="am-form-group">
+                            <label for="user-name" class="am-u-sm-3 am-form-label">章节/部分标题</label>
+                            <div class="am-u-sm-9">
+                                <input type="text" id="Title" name="Title" placeholder=" 例如：课程介绍">
+                            </div>
+                        </div>
+
+                        <div class="am-form-group">
+                            <label for="user-name" class="am-u-sm-3 am-form-label">章节/部分简介</label>
+                            <div class="am-u-sm-9">
+                                <input type="text" id="Synopsis" name="Synopsis" placeholder="例如：课程介绍和目标">
+                            </div>
+                        </div>
+
+                        <div class="am-form-group">
+                            <label for="user-name" class="am-u-sm-3 am-form-label">视频压缩包</label>
+                            <div class="am-u-sm-9">
+                                <input type="file" accept=".zip" name="uploadZip"/>
+                            </div>
+                        </div>
+                        <div class="am-form-group">
+                            <div class="am-u-sm-9 am-u-sm-push-3">
+                                <button type="submit" class="am-btn am-btn-primary">添加</button>
+                                <a href="javascript:history.go(-1);" class="am-btn am-btn-danger ">取消</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../../static/admin/js/jquery.min.js"></script>
+<script src="../../static/admin/js/amazeui.min.js"></script>
+<script src="../../static/admin/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    function add(url) {
+        alert("123")
+        var course = $("#course").val(); //课程id
+        var Classify_id=$("#Classify").val(); //方向id
+        var part=$("#part").val(); //哪个部分的？
+        var Title=$("#Title").val(); //标题
+        var Synopsis=$("#Synopsis").val(); //简介
+        var zipName = $("#uploadZip").val(); //获取上传的压缩包名
+        if (zipName ==''){
+            layer.alert('请选择文件', {
+                icon: 2,
+                skin: 'layer-ext-moon', //该皮肤由layer.seaning.com友情扩展。关于皮肤的扩展规则，去这里查阅
+                time: 1500
+            })
+            return false;
+        } else if (Title == '') {
+            layer.alert('选项不能为空', {
+                icon: 2,
+                skin: 'layer-ext-moon', //该皮肤由layer.seaning.com友情扩展。关于皮肤的扩展规则，去这里查阅
+                time: 1500
+            })
+        }else{
+           alert("触发")
+            var formData = new FormData($("#form1")[0])  //创建一个forData
+            formData.append('zip', $('#uploadZip')[0].files[0]) //把file添加进去  name命名为img
+            formData.append('Classify_id',Classify_id)
+            formData.append('Title',Title)
+            formData.append('Synopsis',Synopsis)
+            formData.append('Course',course)
+            formData.append('Part',part)
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: formData,
+                dataType: 'JSON',
+                cache: false,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    if (data.code == 1) {
+                        layer.alert('添加成功', {
+                            icon: 1,
+                            skin: 'layer-ext-moon', //该皮肤由layer.seaning.com友情扩展。关于皮肤的扩展规则，去这里查阅
+                            time: 1000,
+                            end: function () {
+                                window.location.href = data.message;
+                            }
+                        })
+                    } else {
+                        layer.alert(data.message, {
+                            icon: 2,
+                            skin: 'layer-ext-moon', //该皮肤由layer.seaning.com友情扩展。关于皮肤的扩展规则，去这里查阅
+                            time: 1000,
+                        })
+                    }
+                }
+            })
+        }
+    }
+    //选择图片，马上预览
+    function xmTanUploadImg(obj) {
+        var file = obj.files[0];
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            var img = document.getElementById("xmTanImg");
+            img.src = e.target.result;
+        }
+        reader.readAsDataURL(file)
+    }
+
+    // 获得课程列表
+    function getsection() {
+        var opt=$("#Classify").val();
+        $.ajax({
+            url: "/admin/getCourse",
+            type: "POST",
+            data:{
+                classify_id:opt
+            },
+            success: function (data) {
+                if (data.code == 1) {
+                    $("#course").html("");
+                    str1 ="  <option value=\" \">请选择课程</option>";
+                    $("#course").append(str1);
+                    for (var i=0;i <data.message.length;i++){
+                        str1 =" <option value=\""+data.message[i].Courset_id+"\">"+ data.message[i].Course_name +" </option>";
+                        $("#course").append(str1);
+                    }
+                } else {
+                    $("#course").html("");
+                    str1 ="  <option value=\" \">暂无课程</option>";
+                    $("#course").append(str1);
+                }
+            }
+        })
+    }
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>章节管理</title>
+    <link rel="stylesheet" href="../../static/admin/css/amazeui.min.css"/>
+    <link rel="stylesheet" href="../../static/admin/css/admin.css">
+    <link rel="stylesheet" href="../../static/admin/css/app.css">
+</head>
+<body>
+<div>
+    <div class="tpl-portlet-components" style="height: 595px">
+        <div class="portlet-title">
+            <div class="caption font-green bold">
+                <span class="am-icon-code"></span> 章节管理
+            </div>
+        </div>
+
+        <div class="tpl-block">
+            <div class="am-g">
+                <div class="am-u-sm-12 am-u-md-6">
+                    <div class="am-btn-toolbar">
+                        <div class="am-btn-group am-btn-group-xs">
+                            <button type="button" class="am-btn am-btn-default am-btn-success"><span
+                                        class="am-icon-plus"></span><a class="am-btn-success"
+                                                                       href="/admin/tjzj.html">新增章节</a>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <select data-am-selected="{btnSize: 'sm',maxHeight: 350}" id="classifyc" onchange="t1()">
+                    <option value="1">请选择专业方向</option>
+                    {{range .ccit_course}}
+                        <option value="{{.Classify_id}}">{{.Classify_name}}</option>
+                    {{end}}
+
+                </select>
+                <select data-am-selected="{btnSize: 'sm',maxHeight: 400}" id="collegesid" onchange="t2()">
+                    <option value="">请选择课程</option>
+                </select>
+            </div>
+            <div class="am-g">
+                <div class="am-u-sm-12">
+                    <form class="am-form" action="" method="get">
+                        <table class="am-table am-table-striped am-table-hover table-main" style="margin-bottom: 0px;">
+                            <thead>
+                            <tr>
+                                <th class="table-id" style="text-align: center" width="10%">章节</th>
+                                <th class="table-type" style="text-align: center" width="55%">章节介绍</th>
+                                <th class="table-author am-hide-sm-only" style="text-align: center" width="15%">添加日期
+                                </th>
+                                <th class="table-set" style="text-align: center" width="20%">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody id="tbodys">
+
+                            </tbody>
+                        </table>
+                        <div class="am-cf">
+                        </div>
+                        <hr>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="../../static/admin/js/jquery.min.js"></script>
+<script src="../../static/admin/js/amazeui.min.js"></script>
+<script src="../../static/admin/layer/layer.js"></script>
+<script type="text/javascript">
+    function t1() {
+        var opt = $("#classifyc").val();
+        $.ajax({
+            url: "/admin/getCourse",
+            type: "POST",
+            data: {
+                classify_id: opt
+            },
+            success: function (data) {
+                if (data.code == 1) {
+                    $("#collegesid").html("");
+                    str1 = "  <option value=\" \">请选择课程</option>";
+                    $("#collegesid").append(str1);
+                    for (var i = 0; i < data.message.length; i++) {
+                        str1 = " <option value=\"" + data.message[i].Courset_id + "\">" + data.message[i].Course_name + " </option>";
+                        $("#collegesid").append(str1);
+                    }
+                } else if (data.code == -1) {
+                    $("#collegesid").html("");
+                    str1 = "  <option value=\"1\">请选择课程</option>";
+                    $("#collegesid").append(str1);
+                }
+            }
+        })
+    }
+
+
+</script>
+<script type="text/javascript">
+    function t2() {
+        var Section = $("#collegesid").val();
+            $.ajax({
+                url: "/admin/getSection",
+                type: "POST",
+                data: {
+                    Courset_id: Section
+                },
+                success: function (data) {
+                    if (data.code == 1) {
+                        $("#tbodys").html("");
+                        for (var i = 0; i < data.message.length; i++) {
+                            str1 = " <tr>" +
+                                "                                    <td class=\"ellip\" style=\"text-align: center\">"+ data.message[i].Section_part + "</td>\n" +
+                                "                                    <td class=\"ellip\" style=\"text-align: center\">" + data.message[i].Section_info + "</td>\n" +
+                                "                                    <td class=\"am-hide-sm-only\" style=\"text-align: center\">" + data.message[i].Putaway_time + "</td>\n" +
+                                "                                    <td style=\"text-align: center\">\n" +
+                                "                                        <div>\n" +
+                                "                                            <div class=\"am-btn-group am-btn-group-xs\">\n" +
+                                "                                                <button type=\"button\" class=\"am-btn am-btn-default am-btn-xs am-text-secondary\" value=\"{$vo.objectid}\">\n" +
+                                "                                                    <span class=\"am-icon-pencil-square-o\"></span>\n" +
+                                "                                                    <a href=\"\">编辑</a>\n" +
+                                "                                                </button>\n" +
+                                "                                                <button class=\"am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only\">\n" +
+                                "                                                    <span class=\"am-icon-trash-o\"></span>\n" +
+                                "                                                    <a href=\"JavaScript:;\" onclick=\"deletecsection(" + data.message[i].Section_id + ")\">删除</a>\n" +
+                                "                                                </button>\n" +
+                                "                                            </div>\n" +
+                                "                                        </div>\n" +
+                                "                                    </td>" +
+                                "</tr>";
+                            $("#tbodys").append(str1);
+                        }
+                    } else if (data.code == 2) {
+                        layer.alert(data.message, {
+                            icon: 2,
+                            skin: 'layer-ext-moon', //该皮肤由layer.seaning.com友情扩展。关于皮肤的扩展规则，去这里查阅
+                            time: 2000
+                        })
+                        $("#pages").html("");
+                    }
+                }
+            })
+    }
+
+    function deletecsection(id) {
+        alert(id)
+
+    }
+</script>
+</body>
+</html>

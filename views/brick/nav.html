@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../../../static/layui/css/layui.css" />
+		<link rel="stylesheet" href="../../../static/css/index.css" />
+	</head>
+	<body>
+	<ul class="layui-nav layui-bg-blue">
+	<li class="title">信飞软件工程研发中心资源站</li>
+	<li class="layui-nav-item">
+		<a href="http://www.ccit.club">信飞首页</a>
+	</li>
+	<li class="layui-nav-item">
+		<a href="">Java方向</a>
+	</li>
+	<li class="layui-nav-item">
+		<a href="">Python方向</a>
+	</li>
+	<li class="layui-nav-item">
+		<a href="">HTML前端</a>
+	</li>
+	<li class="layui-nav-item">
+		<a href="">大数据方向</a>
+	</li>
+	<li class="layui-nav-item">
+		<a href="">PHP方向</a>
+	</li>
+	<li class="layui-nav-item">
+		<a href="javascript:;">移动互联方向</a>
+		<dl class="layui-nav-child">
+			<dd>
+				<a href="">Android</a>
+			</dd>
+			<dd>
+				<a href="">IOS</a>
+			</dd>
+		</dl>
+</ul>
+	</body>
+	<script type="text/javascript" src="../../../static/js/jquery.min.js"></script>
+	<script type="text/javascript" src="../../../static/layui/layui.js"></script>
+<script type="text/javascript">
+	layui.use('element', function() {
+		var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
+		//监听导航点击
+		element.on('nav(demo)', function(elem) {
+			//console.log(elem)
+			layer.msg(elem.text());
+		});
+	});
+</script>
+</html>
